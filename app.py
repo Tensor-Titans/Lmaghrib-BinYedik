@@ -117,13 +117,38 @@ def format_monument_info(monument_info: dict) -> str:
 
     return formatted_info
 
+@cl.set_chat_profiles
+async def chat_profile():
+    return [
+        cl.ChatProfile(
+            name="Culture LLM",
+            markdown_description="The underlying LLM model is **GPT-3.5**.",
+            icon="https://picsum.photos/200",
+        ),
+        cl.ChatProfile(
+            name="Prices LLM",
+            markdown_description="The underlying LLM model is **GPT-4**.",
+            icon="https://picsum.photos/250",
+        ),
+    ]
+
 
 # On chat start
 @cl.on_chat_start
 async def on_chat_start():
-    # Message history
-    message_history = []
-    user_session.set("MESSAGE_HISTORY", message_history)
+    # Retrieve message history
+    message_history = user_session.get("MESSAGE_HISTORY", [])
+    chat_profile = user_session.get("chat_profile", "Culture LLM")
+    await cl.Message(
+        content=f"Starting chat using the {chat_profile} chat profile"
+    ).send()
+
+    # Display previous messages if any
+    if message_history:
+        for msg in message_history:
+            await cl.Message(content=msg).send()
+
+    user_session.set("chat_profile", chat_profile)
 
 
 @cl.password_auth_callback
@@ -138,10 +163,40 @@ def auth_callback(username: str, password: str):
         return None
 
 
+@cl.on_chat_resume
+async def on_chat_resume():
+    # Retrieve message history
+    message_history = user_session.get("MESSAGE_HISTORY", [])
+    chat_profile = user_session.get("chat_profile", "Culture LLM")
+    await cl.Message(
+        content=f"Resuming chat using the {chat_profile} chat profile"
+    ).send()
+
+    # Display previous messages if any
+    if message_history:
+        for msg in message_history:
+            await cl.Message(content=msg).send()
+
+
+
 @cl.on_message
 async def on_message(msg: cl.Message):
     # Retrieve message history
-    message_history = user_session.get("MESSAGE_HISTORY")
+    message_history = user_session.get("MESSAGE_HISTORY", [])
+    chat_profile = user_session.get("chat_profile")
+
+    if chat_profile == "Culture LLM":
+        await handle_culture_message(msg, message_history)
+    elif chat_profile == "Prices LLM":
+        await handle_prices_message(msg, message_history)
+    else:
+        await cl.Message(content="Unknown profile, defaulting to Culture LLM.").send()
+        await handle_culture_message(msg, message_history)
+
+
+
+async def handle_culture_message(msg, message_history):
+    # Retrieve message history
     print("message_history", message_history)
     # Retrieve Replicate client
     client = user_session.get("REPLICATE_CLIENT")
@@ -197,19 +252,38 @@ async def on_message(msg: cl.Message):
     message_history.append("Assistant:" + formatted_info)
     user_session.set("MESSAGE_HISTORY", message_history)
 
-    inputs = {"input": msg.content, "history": message_history}
-    text_value = chat_chain.invoke(inputs)
 
-    # Add to history
-    user_text = msg.content
-    message_history.append("User: " + user_text)
-    message_history.append("Assistant:" + text_value)
-    user_session.set("MESSAGE_HISTORY", message_history)
+
 
     await cl.Message(content=formatted_info).send()
-    await cl.Message(content=text_value).send()
+    if msg.content.strip(" "):
+        inputs = {"input": msg.content, "history": message_history}
+        text_value = chat_chain.invoke(inputs)
+
+    # Add to history
+        user_text = msg.content
+        message_history.append("User: " + user_text)
+        message_history.append("Assistant:" + text_value)
+        user_session.set("MESSAGE_HISTORY", message_history)
+        await cl.Message(content=text_value).send()
 
     return
+
+
+async def handle_prices_message(msg, message_history):
+
+
+    user_text = msg.content
+    message_history.append("User: " + user_text)
+    message_history.append("Assistant: Prices LLM specific response")
+    user_session.set("MESSAGE_HISTORY", message_history)
+
+    await cl.Message(content="Prices LLM specific response").send()
+
+
+
+
+
 
 
 # Run the Chainlit app
