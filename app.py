@@ -108,12 +108,13 @@ def format_monument_info(monument_info: dict) -> str:
 **Significance:** {monument_info.get('significance', 'N/A')}
 
 **Visitor Info:** {monument_info.get('visitor_info', 'N/A')}
+
+**Nearby Places:**
 """
 
-    if "nearby_places" in monument_info:
-        formatted_info += "\n**Nearby Places:**\n"
-        for place in monument_info["nearby_places"]:
-            formatted_info += f"- [{place['name']}]({place['google_maps_link']})\n"
+    for place, info in monument_info.get('nearby places', {}).items():
+        place_info = info if info else "Click for location"
+        formatted_info += f"- [{place}](https://www.google.com/maps/search/?api=1&query={place}) - {place_info}\n"
 
     return formatted_info
 
