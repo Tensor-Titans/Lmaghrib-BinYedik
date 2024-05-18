@@ -122,13 +122,13 @@ def format_monument_info(monument_info: dict) -> str:
 async def chat_profile():
     return [
         cl.ChatProfile(
-            name="Culture LLM",
-            markdown_description="The underlying LLM model is **GPT-3.5**.",
+            name="Lmaghrib bin ydik",
+            markdown_description="Your moroccan AI travel guide",
             icon="https://picsum.photos/200",
         ),
         cl.ChatProfile(
-            name="Prices LLM",
-            markdown_description="The underlying LLM model is **GPT-4**.",
+            name="7di rassk",
+            markdown_description="I will help you not get scammed",
             icon="https://picsum.photos/250",
         ),
     ]
@@ -139,9 +139,9 @@ async def chat_profile():
 async def on_chat_start():
     # Retrieve message history
     message_history = user_session.get("MESSAGE_HISTORY", [])
-    chat_profile = user_session.get("chat_profile", "Culture LLM")
+    chat_profile = user_session.get("chat_profile", "Lmaghrib bin ydik")
     await cl.Message(
-        content=f"Starting chat using the {chat_profile} chat profile"
+        content=f"Starting chat using the {chat_profile} profile"
     ).send()
 
     # Display previous messages if any
@@ -168,7 +168,7 @@ def auth_callback(username: str, password: str):
 async def on_chat_resume():
     # Retrieve message history
     message_history = user_session.get("MESSAGE_HISTORY", [])
-    chat_profile = user_session.get("chat_profile", "Culture LLM")
+    chat_profile = user_session.get("chat_profile", "Lmaghrib bin ydik")
     await cl.Message(
         content=f"Resuming chat using the {chat_profile} chat profile"
     ).send()
@@ -186,12 +186,12 @@ async def on_message(msg: cl.Message):
     message_history = user_session.get("MESSAGE_HISTORY", [])
     chat_profile = user_session.get("chat_profile")
 
-    if chat_profile == "Culture LLM":
+    if chat_profile == "Lmaghrib bin ydik":
         await handle_culture_message(msg, message_history)
-    elif chat_profile == "Prices LLM":
+    elif chat_profile == "7di rassk":
         await handle_prices_message(msg, message_history)
     else:
-        await cl.Message(content="Unknown profile, defaulting to Culture LLM.").send()
+        await cl.Message(content="Unknown profile, defaulting to Lmaghrib bin ydik profile.").send()
         await handle_culture_message(msg, message_history)
 
 
