@@ -4,4 +4,4 @@ venv
 __pycache__
 .files
 ./.files
-.env
+#.env
