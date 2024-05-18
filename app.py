@@ -84,7 +84,7 @@ def formatJson(information):
 prompt = PromptTemplate(
     template="""<|begin_of_text|><|start_header_id|>system<|end_header_id|>
         Based on the following list, extract the name of the monument mentioned (there is only one).
-        Ensure that the location  specified is in Morocco .
+        Ensure that the location  specified is in Morocco . and also include the city or region name next to the location extracted
         always give a result and if the place is not known from the text, return ('Unknown place)
         <|eot_id|><|start_header_id|>user<|end_header_id|>
         here is the list {text} \n <|eot_id|><|start_header_id|>assistant<|end_header_id|>
