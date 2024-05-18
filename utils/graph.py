@@ -1,6 +1,5 @@
 from langgraph.graph import END, StateGraph
 from typing_extensions import TypedDict
-from typing import List
 from langchain.schema import Document
 from .main_chain import main_prompt_template, main_chain
 from .hallucination_grader import hallucination_grader

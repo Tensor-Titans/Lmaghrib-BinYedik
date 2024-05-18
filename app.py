@@ -1,14 +1,12 @@
-import requests
-import chainlit as cl
-from langchain_community.llms import HuggingFaceTextGenInference
 from langchain.prompts import PromptTemplate
-import os
 from dotenv import load_dotenv
 import os
 from utils.llm import llm
 from utils.graph import main_app
-
-from pprint import pprint
+from utils.chat_chain import chat_chain
+import chainlit as cl
+import requests
+from chainlit import user_session
 
 
 # Load environment variables
@@ -87,44 +85,74 @@ prompt = PromptTemplate(
     , input_variables=["text"],
 )
 # Define the Chainlit app
-def format_monument_info(monument_info: MonumentInfo) -> str:
+def format_monument_info(monument_info: dict) -> str:
     formatted_info = f"""
-### {monument_info.name}
+### {monument_info.get('name', 'N/A')}
 
-**Location:** {monument_info.location}
+**Location:** {monument_info.get('location', 'N/A')}
 
-**Built:** {monument_info.built}
+**Built:** {monument_info.get('built', 'N/A')}
 
-**Architect:** {monument_info.architect}
+**Architect:** {monument_info.get('architect', 'N/A')}
 
-**Architectural style :** {monument_info.Architectural_styles}
+**Architectural style:** {monument_info.get('architectural_style', 'N/A')}
 
-**Significance:** {monument_info.significance}
+**Significance:** {monument_info.get('significance', 'N/A')}
 
-**Visitor Info:** {monument_info.visitor_info}
-
-**Nearby Places:**
+**Visitor Info:** {monument_info.get('visitor_info', 'N/A')}
 """
-    for place in monument_info.nearby_places:
-        formatted_info += f"- [{place.name}]({place.google_maps_link})\n"
+
+    if 'nearby_places' in monument_info:
+        formatted_info += "\n**Nearby Places:**\n"
+        for place in monument_info['nearby_places']:
+            formatted_info += f"- [{place['name']}]({place['google_maps_link']})\n"
 
     return formatted_info
 
 
+# On chat start
+@cl.on_chat_start
+async def on_chat_start():
+    # Message history
+    message_history = []
+    user_session.set("MESSAGE_HISTORY", message_history)
+
+@cl.password_auth_callback
+def auth_callback(username: str, password: str):
+    # Fetch the user matching username from your database
+    # and compare the hashed password with the value stored in the database
+    if (username, password) == ("admin", "admin"):
+        return cl.User(
+            identifier="admin", metadata={"role": "admin", "provider": "credentials"}
+        )
+    else:
+        return None
+
 @cl.on_message
 async def on_message(msg: cl.Message):
-    # result=""
-    # if not msg.elements:
-    #     # Test
-    #     inputs = {"location": "Volubilis, Meknès Prefecture, Fès-Meknès, Morocco"}
-    #     for output in main_app.stream(inputs):
-    #         for key, value in output.items():
-    #             pprint(f"Finished running: {key}:")
-    #     pprint(value["generation"])
-    #     await cl.Message(content=msg.content).send()
-    #     return
+    # Retrieve message history
+    message_history = user_session.get("MESSAGE_HISTORY")
+    print("message_history",message_history)
+    # Retrieve Replicate client
+    client = user_session.get("REPLICATE_CLIENT")
+
+    if not msg.elements:
+        # Test
+        inputs = {"input": msg.content}
+        value = chat_chain.invoke(inputs)
+
+        await cl.Message(content=value).send()
+
+        # Add to history
+        user_text = msg.content
+        message_history.append("User: " + user_text)
+        message_history.append("Assistant:" + value)
+        user_session.set("MESSAGE_HISTORY", message_history)
+
+        return
 
     # Processing images exclusively
+
     images = [file for file in msg.elements if "image" in file.mime]
 
     imageUrl=upload_to_imgbb(images[0].path,client_id)
@@ -147,12 +175,24 @@ async def on_message(msg: cl.Message):
     # print(imageUrl)
 
         # Test
+    print("result::: " ,result)
     inputs = {"location": result}
     value=main_app.invoke(inputs)
 
     value = value["generation"] [-1]  if type(value['generation'])==list else value["generation"]
+    formatted_info = format_monument_info(value)
 
-    await cl.Message(content=value).send()
+    inputs = {"input": msg.content}
+    text_value = chat_chain.invoke(inputs)
+    await cl.Message(content=text_value).send()
+    await cl.Message(content=formatted_info).send()
+
+    # Add to history
+    # user_text = message.content
+    # message_history.append("User: " + user_text)
+    # message_history.append("Assistant:" + ai_message)
+    # user_session.set("MESSAGE_HISTORY", message_history)
+
     return
 
     # await cl.Message(content=f"{result} ").send()
