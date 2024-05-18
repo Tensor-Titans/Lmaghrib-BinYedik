@@ -112,7 +112,7 @@ def format_monument_info(monument_info: dict) -> str:
 **Nearby Places:**
 """
 
-    for place, info in monument_info.get('nearby places', {}).items():
+    for place, info in monument_info.get('nearby_places', {}).items():
         place_info = info if info else "Click for location"
         formatted_info += f"- [{place}](https://www.google.com/maps/search/?api=1&query={place}) - {place_info}\n"
 
@@ -242,6 +242,7 @@ async def handle_culture_message(msg, message_history):
         if type(value["generation"]) == list
         else value["generation"]
     )
+    print("Value : ", value)
     formatted_info = format_monument_info(value)
 
     # Add to history
