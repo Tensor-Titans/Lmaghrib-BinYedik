@@ -7,6 +7,7 @@ from utils.chat_chain import chat_chain
 import chainlit as cl
 import requests
 from chainlit import user_session
+import urllib.parse
 
 
 # Load environment variables
@@ -112,9 +113,11 @@ def format_monument_info(monument_info: dict) -> str:
 **Nearby Places:**
 """
 
+    starting_point_encoded = urllib.parse.quote_plus(monument_info.get('name', ''))
     for place, info in monument_info.get('nearby_places', {}).items():
+        destination_encoded = urllib.parse.quote_plus(place)
         place_info = info if info else "Click for location"
-        formatted_info += f"- [{place}](https://www.google.com/maps/search/?api=1&query={place}) - {place_info}\n"
+        formatted_info += f"- [{place}](https://www.google.com/maps/dir/{starting_point_encoded}/{destination_encoded})\n"
 
     return formatted_info
 
