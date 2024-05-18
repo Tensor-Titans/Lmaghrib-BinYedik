@@ -14,8 +14,7 @@
 
 ## Prerequisites
 
-- [Software and versions required]
-- [Other dependencies]
+- Python 3.12.0
 
 ## Installation
 
