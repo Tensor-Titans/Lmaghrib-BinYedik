@@ -57,5 +57,6 @@
 Explore the app, try out all the features, and enjoy discovering all the amazing information about Moroccan monuments, cuisine, and more!
   
 
+## License
 
-[License details]
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
