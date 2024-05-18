@@ -219,7 +219,6 @@ async def handle_culture_message(msg, message_history):
     # Processing images exclusively
 
     images = [file for file in msg.elements if "image" in file.mime]
-
     imageUrl = upload_to_imgbb(images[0].path, client_id)
 
     # print("__________ : ",imageUrl)
@@ -231,8 +230,6 @@ async def handle_culture_message(msg, message_history):
 
     # print("jsonOutput: ____________\n", jsonOutput)
     formatedText = formatJson(jsonOutput)
-    print(formatedText)
-
     chain = prompt | llm
     result = chain.invoke({"text": formatedText})
 
