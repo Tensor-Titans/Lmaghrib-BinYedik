@@ -1,0 +1,16 @@
+requests
+chainlit
+langchain
+langchain_community
+python-dotenv
+text_generation
+pydantic
+urllib3
+lan
+langchain_community
+langchain-nomic
+tiktoken
+langchainhub
+chromadb
+langgraph
+tavily-python
