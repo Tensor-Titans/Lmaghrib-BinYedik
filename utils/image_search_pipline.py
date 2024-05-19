@@ -96,7 +96,7 @@ def format_monument_info(monument_info: dict) -> str:
     for place, info in monument_info.get("nearby_places", {}).items():
         destination_encoded = urllib.parse.quote_plus(place)
         place_info = info if info else "Click for location"
-        formatted_info += f"- [{place}](https://www.google.com/maps/dir/{starting_point_encoded}/{destination_encoded})\n"
+        formatted_info += f"- [{place}](https://www.google.com/maps/dir/{starting_point_encoded}/{destination_encoded}) : {info} \n"
 
     return formatted_info
 

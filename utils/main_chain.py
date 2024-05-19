@@ -11,7 +11,7 @@ main_prompt_template = PromptTemplate(
           give back information information about the monument.
           give this details about the place  'name', 'location', 'built', 'architect', 'significance', 'visitor_info', 'nearby_places'
           Provide this details as a JSON with this keys 'name', 'location', 'built', 'architect', 'significance', 'visitor_info' and no preamble or explanation.
-          nearby places should be a object with place name as the key, nearby places are interesting places really close to the location the tourist can check out 
+          nearby places should be a object with place name as the key, and the value is a little description of the place, nearby places are interesting places really close to the location the tourist can check out 
           <|eot_id|><|start_header_id|>user<|end_header_id|>
           Here is the historical monument: {location}
           {document}
