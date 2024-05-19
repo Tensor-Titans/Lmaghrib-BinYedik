@@ -16,6 +16,20 @@
 
 - Python 3.12.0
 
+
+## Approach
+
+<img src="https://seeklogo.com/images/G/google-lens-logo-0F69C74B83-seeklogo.com.png" width="75" height="75" alt="Google Lens">
+
+Our solution leverages the Google Lens API to perform searches for images related to an input image, focusing specifically on Moroccan monuments. 
+This approach allows us to gather a broad range of related images.
+
+We then utilize the LLM, LLaMA3, to process and analyze the associated image data, enabling it to pinpoint the exact name of the monument depicted.
+
+With the monument’s name identified, LLaMA3 serves a dual role. It acts as an interactive tool to answer and elaborate on queries about the monument, providing users with detailed, accessible explanations and enhancing their overall understanding.
+
+
+
 ## Installation
 
 1. **Clone the repository:**
