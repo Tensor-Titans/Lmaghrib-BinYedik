@@ -2,8 +2,9 @@ import chainlit as cl
 from chainlit import user_session
 
 from utils.llm import llm
-from utils.graph import main_app
+from utils.main_graph import main_app
 from utils.chat_chain import chat_chain
+from utils.product_price_graph import product_price_app
 from utils.image_search_pipline import (
     extract_information,
     format_monument_info,
@@ -36,9 +37,7 @@ async def on_chat_start():
     # Retrieve message history
     message_history = user_session.get("MESSAGE_HISTORY", [])
     chat_profile = user_session.get("chat_profile", "Lmaghrib bin ydik")
-    await cl.Message(
-        content=f"Starting chat using the {chat_profile} profile"
-    ).send()
+    await cl.Message(content=f"Starting chat using the {chat_profile} profile").send()
 
     # Display previous messages if any
     if message_history:
@@ -86,7 +85,9 @@ async def on_message(msg: cl.Message):
     elif chat_profile == "7di rassk":
         await handle_prices_message(msg, message_history)
     else:
-        await cl.Message(content="Unknown profile, defaulting to Lmaghrib bin ydik profile.").send()
+        await cl.Message(
+            content="Unknown profile, defaulting to Lmaghrib bin ydik profile."
+        ).send()
         await handle_culture_message(msg, message_history)
 
 
@@ -125,7 +126,9 @@ async def handle_culture_message(msg, message_history):
 
     # print("jsonOutput: ____________\n", jsonOutput)
     formatedText = formatJson(jsonOutput)
+
     chain = image_search_prompt | llm
+
     result = chain.invoke({"text": formatedText})
 
     inputs = {"location": result}
@@ -136,6 +139,7 @@ async def handle_culture_message(msg, message_history):
         if type(value["generation"]) == list
         else value["generation"]
     )
+
     print("Value : ", value)
     formatted_info = format_monument_info(value)
 
@@ -145,15 +149,12 @@ async def handle_culture_message(msg, message_history):
     message_history.append("Assistant:" + formatted_info)
     user_session.set("MESSAGE_HISTORY", message_history)
 
-
-
-
     await cl.Message(content=formatted_info).send()
     if msg.content.strip(" "):
         inputs = {"input": msg.content, "history": message_history}
         text_value = chat_chain.invoke(inputs)
 
-    # Add to history
+        # Add to history
         user_text = msg.content
         message_history.append("User: " + user_text)
         message_history.append("Assistant:" + text_value)
@@ -165,13 +166,16 @@ async def handle_culture_message(msg, message_history):
 
 async def handle_prices_message(msg, message_history):
 
-
     user_text = msg.content
+
+    inputs = {"question": user_text, "history": message_history}
+    result = product_price_app.invoke(inputs)
+
     message_history.append("User: " + user_text)
-    message_history.append("Assistant: Prices LLM specific response")
+    message_history.append("Assistant: " + result["generation"])
     user_session.set("MESSAGE_HISTORY", message_history)
 
-    await cl.Message(content="Prices LLM specific response").send()
+    await cl.Message(content=result["generation"]).send()
 
 
 # Run the Chainlit app
