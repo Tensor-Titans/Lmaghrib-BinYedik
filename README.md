@@ -12,9 +12,7 @@
 - **User Support**: Receive expert travel tips and real-time assistance to make the most out of your journey in Morocco.
 
 
-## Prerequisites
 
-- Python 3.12.0 or newer
 
 
 ## Strategy and Execution
@@ -86,10 +84,26 @@ while GPT-4 offers broad general knowledge, LLaMA3 has been tailored to excel in
 ![gpt4](https://github.com/Tensor-Titans/Lmaghrib-BinYedik/assets/77627747/ee42892b-9ee8-46c9-9203-33c8439184b0)
 
 
+## Demo :
+
+
+https://github.com/Tensor-Titans/Lmaghrib-BinYedik/assets/77627747/8a44fbf5-cb2f-4ee0-acaf-8320f5bddb0c
+
+
+
+
 
 
 ![identify our historical monuments](https://github.com/Tensor-Titans/Lmaghrib-BinYedik/assets/77627747/450391c4-8fd3-4d6c-b86a-dcb340880eba)
 
+
+
+
+## Prerequisites
+
+- Python 3.12.0 or newer
+
+- 
 ## Installation
 
 1. **Clone the repository:**
