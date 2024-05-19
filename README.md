@@ -84,6 +84,10 @@ while GPT-4 offers broad general knowledge, LLaMA3 has been tailored to excel in
 ![gpt4](https://github.com/Tensor-Titans/Lmaghrib-BinYedik/assets/77627747/ee42892b-9ee8-46c9-9203-33c8439184b0)
 
 
+## Pitch presentation :
+
+[Canva Link](https://www.canva.com/design/DAGFpeHolWQ/dw3Elbi80ec6kVA5YTt3nQ/view?utm_content=DAGFpeHolWQ&utm_campaign=designshare&utm_medium=link&utm_source=editor)
+
 ## Demo :
 
 
