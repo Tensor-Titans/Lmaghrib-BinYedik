@@ -71,6 +71,7 @@ Addressing common tourist challenges, we focused on preventing overpayment scams
 
 ## Additional Features :
 
+### Generating map links.
 #### History Persistence: Ensures continuity in user interactions.
 #### Context Relevancy: Keeps conversations relevant and engaging.
 #### On_Chat_Resume: Allows users to pick up where they left off.
