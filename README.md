@@ -2,29 +2,27 @@
 ![DALLE2024-05-1818 45 51-AbannerforaGitHubrepositoryforanapplicationcalledLmaghrib-BinYedikwhichguidestouristsinMorocco ThedesignshouldfeatureMoroccancul-ezgif com-webp-to-jpg-converter](https://github.com/Tensor-Titans/Lmaghrib-BinYedik/assets/49345542/5ee03377-1f54-4fac-bb4e-1a252fec07d9)
 
  
- # This project was made in the 2024 ThinkAI GenAI Hackathon Under the theme of Tourism 
- 
- 
- Lmaghrib-BinYedik Combines detailed information on Moroccan monuments, directions, pricing, and assistance into a single, user-friendly chatbot like platform.
+### Lmaghrib-BinYedik is a pioneering project developed during the 2024 ThinkAI GenAI Hackathon under the theme of tourism. Our application integrates extensive information about Moroccan monuments into a single, user-friendly chatbot platform, offering tourists a seamless and enriching travel experience.
 
  ## We Offer:
 
-- **Comprehensive Information**: Detailed descriptions and histories of Moroccan monuments.
-- **Navigation Assistance**: Accurate directions and maps to help you explore the city you visied with ease.
-- **Pricing Details**: Up-to-date information on Monuments entry fees, food prices, and other costs.
-- **User Support**: Assistance and tips to enhance your travel experience.
+- **Comprehensive Information**:  Access in-depth descriptions, historical data, and fascinating narratives about Morocco's iconic monuments.
+- **Navigation Assistance**: Utilize precise directions and interactive maps to navigate through Moroccan cities effortlessly.
+- **Pricing Details**: Stay informed with the latest entry fees for monuments, local food prices, and other essential costs.
+- **User Support**: Receive expert travel tips and real-time assistance to make the most out of your journey in Morocco.
 
 
 ## Prerequisites
 
-- Python 3.12.0
+- Python 3.12.0 or newer
 
 
-## Approach
-
-The Project was divided into tasks in which we tried different techniques.
+## Strategy and Execution
 
 ### Task 1 : Monument Identification
+
+To enhance the accuracy of monument recognition, we evaluated various models before selecting the Google Lens API for its superior performance in handling diverse image data:
+
 
 | Model     | Accuracy                          | Flexibility |  Chosen | 
 |-----------|-----------------------------------|-----------|------| 
@@ -33,10 +31,7 @@ The Project was divided into tasks in which we tried different techniques.
 | Google Lens      | High              | High   |✅|
 
 
-
-Based on these results we tempted for using the Google Lens API to conduct online searches for images corresponding to the input image, specifically focusing on monuments in Morocco. This process allowed us to gather a diverse set of images related to the given monument.
-We then utilized the LLM, LLaMA3, to process and analyze the associated image data such as title, enabling it to pinpoint the exact name of the monument depicted.
-We chose LLaMA3 since it's a free and open source , we chose the 8 billion parameters model, because it's fast in inference and its performance is good enough for our use case.
+Using the Google Lens API, we capture a broad spectrum of images related to each monument. The LLaMA3 LLM then processes this data, efficiently identifying the exact monument name from the image attributes. We selected the 8 billion parameter model of LLaMA3 for its balance of speed and accuracy, crucial for real-time application needs.
 
 
 
@@ -44,8 +39,12 @@ We chose LLaMA3 since it's a free and open source , we chose the 8 billion param
 
 
 ### Task 2 : Information Retriever
-With the monument’s name identified, LLaMA3 serves a dual role. It also acts as an interactive tool to answer and elaborate on queries about the monument, providing users with detailed, accessible explanations and enhancing their overall understanding.
-Further, we employ LangGraph to orchestrate and manage the interaction flows within our application. LangGraph facilitates the creation of complex, stateful interaction chains, which are essential for maintaining context and continuity in conversations with users.
+
+With the monument identified, LLaMA3 adopts a dual role:
+
+Interactive Query Handling: Acts as a responsive agent to field questions about the monument, delivering detailed and accessible information.
+Data Integration and Management: Leveraging LangGraph, we design complex, stateful interaction chains that maintain conversational context, enhancing user interaction continuity.
+
 
 | Technique   | Accuracy                       | Speed    | Relevancy | Chosen |
 |-----------|-----------------------------------|-----------|--------|--------|
@@ -56,7 +55,9 @@ Based on the data retrieved we format it into a suitable format that we can disp
 
 ### Task 3 : Scam prevention for tourists
 
-While scouring the internet, to look for problems that tourist may encouter, we found the greatest one by a great deal at that too, was the fact that some tourists get scammed, by overpaying on certain necessary items, so we scraped the Marjane Catalogs to build our food prices dataset
+Addressing common tourist challenges, we focused on preventing overpayment scams by integrating a reliable pricing guide based on real-time data from scraped local sources like Marjane catalogs.
+
+
 | Technique   | Accuracy                       | Speed    | Relevancy | Dependant on Dataset | Chosen |
 |-----------|-----------------------------------|-----------|--------|--------|--------|
 | Llama3 Knowledge     | Medium| Fast (doesn't need extra steps to get data) | Low  |No |❌ |
@@ -68,14 +69,19 @@ While scouring the internet, to look for problems that tourist may encouter, we 
 
 
 
-## Extra Tasks :
+## Additional Features :
 
-#### History Persistence
-#### Context relevancy in conversation
-#### On_Chat_Resume
-#### Authentification mechanism
-#### Multiple Model profiles
-#### 
+#### History Persistence: Ensures continuity in user interactions.
+#### Context Relevancy: Keeps conversations relevant and engaging.
+#### On_Chat_Resume: Allows users to pick up where they left off.
+#### Authentication Mechanism: Secures user data and customizes experiences.
+#### Multiple Model Profiles: Offers tailored responses based on user preferences.
+
+
+
+Our implementation of LLaMA3 for Lmaghrib-BinYedik presents distinct advantages over cutting-edge models like GPT-4.
+while GPT-4 offers broad general knowledge, LLaMA3 has been tailored to excel in domain-specific tasks, such as identifying and providing detailed information on Moroccan monuments. This focus ensures that our model not only provides accurate information but does so with a depth of understanding and contextual relevance that is specifically optimized for the tourism sector in Morocco.
+
 ![gpt4](https://github.com/Tensor-Titans/Lmaghrib-BinYedik/assets/77627747/ee42892b-9ee8-46c9-9203-33c8439184b0)
 
 
