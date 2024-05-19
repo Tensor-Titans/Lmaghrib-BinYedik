@@ -1,12 +1,15 @@
 # Lmaghrib-BinYedik
 ![DALLE2024-05-1818 45 51-AbannerforaGitHubrepositoryforanapplicationcalledLmaghrib-BinYedikwhichguidestouristsinMorocco ThedesignshouldfeatureMoroccancul-ezgif com-webp-to-jpg-converter](https://github.com/Tensor-Titans/Lmaghrib-BinYedik/assets/49345542/5ee03377-1f54-4fac-bb4e-1a252fec07d9)
 
- Lmaghrib-BinYedik Combines detailed information on Moroccan monuments, cuisine, directions, pricing, and assistance into a single, user-friendly chatbot like platform.
+ 
+ # This project was made in the 2024 ThinkAI GenAI Hackathon Under the theme of Tourism 
+ 
+ 
+ Lmaghrib-BinYedik Combines detailed information on Moroccan monuments, directions, pricing, and assistance into a single, user-friendly chatbot like platform.
 
  ## We Offer:
 
 - **Comprehensive Information**: Detailed descriptions and histories of Moroccan monuments.
-- **Culinary Insights**: Information about traditional Moroccan cuisine, including popular dishes and recipes.
 - **Navigation Assistance**: Accurate directions and maps to help you explore the city you visied with ease.
 - **Pricing Details**: Up-to-date information on Monuments entry fees, food prices, and other costs.
 - **User Support**: Assistance and tips to enhance your travel experience.
@@ -19,16 +22,66 @@
 
 ## Approach
 
-<img src="https://seeklogo.com/images/G/google-lens-logo-0F69C74B83-seeklogo.com.png" width="75" height="75" alt="Google Lens">
+The Project was divided into tasks in which we tried different techniques.
 
-Our solution leverages the Google Lens API to perform searches for images related to an input image, focusing specifically on Moroccan monuments. 
-This approach allows us to gather a broad range of related images.
+### Task 1 : Monument Identification
 
-We then utilize the LLM, LLaMA3, to process and analyze the associated image data, enabling it to pinpoint the exact name of the monument depicted.
+| Model     | Accuracy                          | Flexibility |  Chosen | 
+|-----------|-----------------------------------|-----------|------| 
+| YoloV8 Classification     | High| Low (limited number of classes) |❌ |
+| Bing Reverse Search | Average     | Average (doesn't work too well with new data) |❌ |
+| Google Lens      | High              | High   |✅|
 
-With the monument’s name identified, LLaMA3 serves a dual role. It acts as an interactive tool to answer and elaborate on queries about the monument, providing users with detailed, accessible explanations and enhancing their overall understanding.
 
 
+Based on these results we tempted for using the Google Lens API to conduct online searches for images corresponding to the input image, specifically focusing on monuments in Morocco. This process allowed us to gather a diverse set of images related to the given monument.
+We then utilized the LLM, LLaMA3, to process and analyze the associated image data such as title, enabling it to pinpoint the exact name of the monument depicted.
+We chose LLaMA3 since it's a free and open source , we chose the 8 billion parameters model, because it's fast in inference and its performance is good enough for our use case.
+
+
+
+
+
+
+### Task 2 : Information Retriever
+With the monument’s name identified, LLaMA3 serves a dual role. It also acts as an interactive tool to answer and elaborate on queries about the monument, providing users with detailed, accessible explanations and enhancing their overall understanding.
+Further, we employ LangGraph to orchestrate and manage the interaction flows within our application. LangGraph facilitates the creation of complex, stateful interaction chains, which are essential for maintaining context and continuity in conversations with users.
+
+| Technique   | Accuracy                       | Speed    | Relevancy | Chosen |
+|-----------|-----------------------------------|-----------|--------|--------|
+| Llama3 Knowledge     | High| Fast (doesn't need extra steps to get data) | Low  |❌ |
+| WebSearch | High     | Slow  | High|✅ |
+
+Based on the data retrieved we format it into a suitable format that we can display into the GUI as a markdown with interactive links.
+
+### Task 3 : Scam prevention for tourists
+
+While scouring the internet, to look for problems that tourist may encouter, we found the greatest one by a great deal at that too, was the fact that some tourists get scammed, by overpaying on certain necessary items, so we scraped the Marjane Catalogs to build our food prices dataset
+| Technique   | Accuracy                       | Speed    | Relevancy | Dependant on Dataset | Chosen |
+|-----------|-----------------------------------|-----------|--------|--------|--------|
+| Llama3 Knowledge     | Medium| Fast (doesn't need extra steps to get data) | Low  |No |❌ |
+| Llama3 Prompt Engineered  | High(But can only take a small subset of dataset) | Slow (It uses up token for taking the data as context) | High  |Yes |❌ |
+| WebSearch | High     | Slow  | High |No |✅ |
+| Gemini FineTuned | High     | Average | Medium  |Yes |✅ |
+| CsvAgent | Medium     |Fast  | Low (Needs Exact Name ) |Yes |❌ |
+
+
+
+
+## Extra Tasks :
+
+#### History Persistence
+#### Context relevancy in conversation
+#### On_Chat_Resume
+#### Authentification mechanism
+#### Multiple Model profiles
+#### 
+![gpt4](https://github.com/Tensor-Titans/Lmaghrib-BinYedik/assets/77627747/ee42892b-9ee8-46c9-9203-33c8439184b0)
+
+
+
+
+![identify our historical monuments](https://github.com/Tensor-Titans/Lmaghrib-BinYedik/assets/77627747/450391c4-8fd3-4d6c-b86a-dcb340880eba)
 
 ## Installation
 
