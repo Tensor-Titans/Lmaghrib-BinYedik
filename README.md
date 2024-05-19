@@ -142,7 +142,11 @@ https://github.com/Tensor-Titans/Lmaghrib-BinYedik/assets/77627747/8a44fbf5-cb2f
 ## Have Fun!
 
 Explore the app, try out all the features, and enjoy discovering all the amazing information about Moroccan monuments, cuisine, and more!
-  
+## Data Sources
+
+- [Moroccan Product Prices Data](https://drive.google.com/file/d/16JutKB5cA__95UHBk9OS5aGAPdsFvdyq/view?usp=sharing)
+
+- [MonumentsMar Dataset](https://drive.google.com/file/d/11v6-1MtI4BCHFyILfAHhP9Ca9RZz9Tc-/view?usp=sharing)
 
 ## License
 
