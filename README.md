@@ -107,7 +107,6 @@ https://github.com/Tensor-Titans/Lmaghrib-BinYedik/assets/77627747/8a44fbf5-cb2f
 
 - Python 3.12.0 or newer
 
-- 
 ## Installation
 
 1. **Clone the repository:**
@@ -140,7 +139,8 @@ https://github.com/Tensor-Titans/Lmaghrib-BinYedik/assets/77627747/8a44fbf5-cb2f
     ```
 
 2. **Access the application:**
-    Open your browser and go to http://localhost:8000/
+    Open your browser and go to http://localhost:8000/  <br/> you can use username=admin , password=admin (for the sake of the demo)
+
 
 ## Running Tests
 ## Have Fun!
