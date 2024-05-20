@@ -1,8 +1,7 @@
 venv
-.env.dev
 .idea
 .chainlit
 __pycache__
 .files
 ./.files
-#.env
+.env.dev
