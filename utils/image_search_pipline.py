@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 
 # Load environment variables
-load_dotenv()
+load_dotenv(dotenv_path='./.env.dev', override=True)
 serpApiKey = os.getenv("serpApiKey")
 client_id = os.getenv("client_id")
 

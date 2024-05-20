@@ -3,7 +3,9 @@ from dotenv import load_dotenv
 import os
 
 # Load environment variables
-load_dotenv()
+# load_dotenv()
+load_dotenv(dotenv_path='./.env.dev', override=True)
+
 hf_token = os.getenv('hf_token')
 
 llm = HuggingFaceTextGenInference(

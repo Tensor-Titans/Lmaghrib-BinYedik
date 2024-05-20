@@ -1,4 +1,5 @@
 venv
+.env
 .idea
 .chainlit
 __pycache__
