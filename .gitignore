@@ -1,5 +1,5 @@
 venv
-.env
+.env.dev
 .idea
 .chainlit
 __pycache__
