@@ -130,7 +130,22 @@ https://github.com/Tensor-Titans/Lmaghrib-BinYedik/assets/77627747/8a44fbf5-cb2f
     ```sh
      pip install -r requirements.txt
     ```
+    
+4 Set up the environment variables:
+      set the api keys in .env file
 
+      ```
+      client_id=<your-imagebb-api-key>
+      hf_token=<your-huggingface-access-token>
+      serpApiKey=<your-serp-api-key>
+      TAVILY_API_KEY=<your-tavily-api-key>
+      LITERAL_API_KEY=<your-literal-api-key>
+      CHAINLIT_AUTH_SECRET=<your-chainlit-secret-key>
+      ```
+
+  ```
+
+  ```
 ## Running the Project
 
 1. **Start the server:**
