@@ -145,7 +145,7 @@ https://github.com/Tensor-Titans/Lmaghrib-BinYedik/assets/77627747/8a44fbf5-cb2f
 
   ```
 
-  ```
+  
 ## Running the Project
 
 1. **Start the server:**
