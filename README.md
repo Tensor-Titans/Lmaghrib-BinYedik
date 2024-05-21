@@ -131,7 +131,7 @@ https://github.com/Tensor-Titans/Lmaghrib-BinYedik/assets/77627747/8a44fbf5-cb2f
      pip install -r requirements.txt
     ```
     
-4 Set up the environment variables:
+3. Set up the environment variables:
       set the api keys in .env file
 
       ```
@@ -143,7 +143,7 @@ https://github.com/Tensor-Titans/Lmaghrib-BinYedik/assets/77627747/8a44fbf5-cb2f
       CHAINLIT_AUTH_SECRET=<your-chainlit-secret-key>
       ```
 
-  ```
+  
 
   
 ## Running the Project
