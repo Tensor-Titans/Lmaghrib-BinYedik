@@ -135,12 +135,13 @@ https://github.com/Tensor-Titans/Lmaghrib-BinYedik/assets/77627747/8a44fbf5-cb2f
       set the api keys in .env file
 
       ```
-      client_id=<your-imagebb-api-key>
-      hf_token=<your-huggingface-access-token>
-      serpApiKey=<your-serp-api-key>
-      TAVILY_API_KEY=<your-tavily-api-key>
-      LITERAL_API_KEY=<your-literal-api-key>
-      CHAINLIT_AUTH_SECRET=<your-chainlit-secret-key>
+      client_id=<your-imagebb-api-key> ---> https://api.imgbb.com/
+      hf_token=<your-huggingface-access-token> ---> https://huggingface.co/settings/tokens
+      serpApiKey=<your-serp-api-key> ---> https://serpapi.com/manage-api-key
+      TAVILY_API_KEY=<your-tavily-api-key> ---> https://app.tavily.com/home
+      LITERAL_API_KEY=<your-literal-api-key> ---> https://cloud.getliteral.ai/
+      CHAINLIT_AUTH_SECRET=<your-chainlit-secret-key> --->run the command : ( chainlit create-secret )
+      at the project root directory to generate the auth secret, and paste it in the.env file
       ```
 
   
