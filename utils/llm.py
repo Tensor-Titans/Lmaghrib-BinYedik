@@ -9,11 +9,12 @@ load_dotenv(dotenv_path='./.env.dev', override=True)
 hf_token = os.getenv('hf_token')
 
 llm = HuggingFaceTextGenInference(
-    inference_server_url="https://jrliticly0nlznb9.us-east-1.aws.endpoints.huggingface.cloud",
+    inference_server_url="https://api-inference.huggingface.co/models/meta-llama/Meta-Llama-3-8B-Instruct",
     server_kwargs={
         "headers": {
             "Authorization": f"Bearer {hf_token}",
             "Content-Type": "application/json",
         }
     },
+streaming=True
 )
